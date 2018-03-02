@@ -24,14 +24,11 @@ int main()
 
 	max = getMax(A, len);
 	//printf("test\nmax=%d\n", max);            //test:correct
-	if (max == 0)
-		;
-	else
-		for (int i = 10;; i *= 10) {
-			if (max / i == 0)
-				break;
-			time += 1;
-		}
+	for (int i = 10;; i *= 10) {
+		if (max / i == 0)
+			break;
+		time += 1;
+	}
 	//printf("test\ntime=%d\n", time);         //test:correct
 	//int test=getFigure(1234, 2);
 	//printf("test\nexmple:1234\n 2:%d\n", test);      //test;correct
@@ -65,19 +62,29 @@ void radix(int *A, int len, int time) {
 }
 void merge(int *A, int *amount) {
 	int k = 0;
-	for (int i = 0; i < 10; i++) 
-		for (int j = 0; j < amount[i]; j++) {
+	for (int i = 0; i < 10; i++) {
+		if (amount[i] == 0)
+			continue;
+		else
+			for (int j = 0; j < amount[i]; j++) {
 				A[k] = store[i][j];
 				k++;
 			}
+	}
 }
 void show(int *A, int len) {
 	for (int i = 0; i < len; i++)
 		printf("%d ", A[i]);
 }
 int pow(int base, int index) {
-	int power = 1;
-	for (int i = 0; i < index; i++)
-		power *= base;
-	return power;
+	int mul = base;
+	if (index == 0)
+		return 1;
+	if (index == 1)
+		return base;
+	else {
+		for (int i = 2; i <= index; i++)
+			mul *= base;
+		return mul;
+	}
 }
